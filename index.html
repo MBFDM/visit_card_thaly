@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit of card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary-color_1: #ffffff;
+            --primary-color: #112a50;
+            --secondary-color: #c42312;
+            --accent-color: #009640;
+            --text-color: #333;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e1e1e1;
+            --dark-gray: #555;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffffff 100%, #ffffff 100%);
+            padding: 20px;
+            color: var(--text-color);
+        }
+        
+        .business-card {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 50px 80px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+        
+        .business-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background: var(--primary-color_1);
+            color: white;
+            padding: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header-1 {
+            background: linear-gradient(135deg, #009640 0%, #000033 100%);
+            color: white;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-header-1::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 100px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.253);
+            border-radius: 50%;
+        }
+
+        .card-header-2 {
+            background: linear-gradient(135deg, #009640 0%, #000033 100%);
+            color: white;
+            padding: 5px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header-2::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 100px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.253);
+            border-radius: 100%;
+        }
+        
+        .company-name {
+            font-size: 22px;
+            font-weight: 100;
+            margin-bottom: 0px;
+            letter-spacing: 0.5px;
+            text-align: left;
+            flex: 1;
+        }
+        
+        .company-sub {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 3px;
+            color: #141853;
+            text-align: right;
+            flex: 1;
+            
+        }
+        
+        .card-body {
+            padding: 25px;
+            position: relative;
+        }
+        
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            margin-right: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .person-info {
+            flex: 1;
+        }
+        
+        .person-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 3px;
+        }
+        
+        .person-title {
+            font-size: 14px;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+        
+        .person-marital {
+            font-size: 13px;
+            color: var(--dark-gray);
+            font-style: italic;
+        }
+        
+        .contact-info {
+            margin-bottom: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        
+        .contact-icon {
+            color: var(--primary-color);
+            margin-right: 12px;
+            margin-top: 2px;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 25px 0;
+            padding: 20px 0;
+            border-top: 1px dashed var(--medium-gray);
+            border-bottom: 1px dashed var(--medium-gray);
+        }
+        
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .qr-label {
+            font-size: 12px;
+            color: var(--dark-gray);
+            text-align: center;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-btn i {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .save-contact {
+            background: var(--primary-color);
+        }
+        
+        .save-contact:hover {
+            background: #1961ce;
+        }
+        
+        .whatsapp {
+            background: var(--accent-color);
+        }
+        
+        .whatsapp:hover {
+            background: #0ddd5a;
+        }
+        
+        .rdv {
+            background: var(--secondary-color);
+        }
+        
+        .rdv:hover {
+            background: #ff1900;
+        }
+        
+        .watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 10px;
+            color: var(--medium-gray);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            color: var(--primary-color);
+            background-color: rgba(240, 240, 240, 0.7);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        @media (max-width: 480px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-img {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .company-name, .company-sub {
+                text-align: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="business-card">
+        <div class="card-header-1">
+            <div class="company-sub">
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="profile-section">
+                <img src="photo-profile.jpeg" alt="Photo de Lazare LEMBION" class="profile-img" id="profile-img">
+                <div class="person-info">
+                    <h2 class="person-name">Désirée Taliane - MPASSI MAHINGA</h2>
+                    <div class="person-marital"></div>
+                    <div class="person-title">PhD candidate in industrial <br>Engineering/Optimisation of Renewable <br>Energy Systems</div>
+                </div>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                    <div>+27 62 785 69 40<br>+242 06 633 38 78</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>BP.: 14 South Africa <br>Andringa Street, Stellenbosch</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <a href="mailto:taliane@aims.ac.za">taliane@aims.ac.za</a><br>
+                        <!--a href="mailto:lazare.lembion@agc-vie.cg">lazare.lembion@agc-vie.cg</a-->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qr-section">
+                <div id="qrcode" class="qr-code" style="width:150px; height:150px;"></div>
+                <div class="qr-label">Scannez pour enregistrer mes coordonnées</div>
+            </div>
+            
+            <div class="actions">
+                <button class="action-btn save-contact" onclick="saveToContacts()">
+                    <i class="fas fa-address-card"></i> Enregistrer
+                </button>
+                <button class="action-btn whatsapp" onclick="openWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </button>
+                <button class="action-btn rdv" onclick="takeAppointment()">
+                    <i class="fas fa-calendar-alt"></i> RDV
+                </button>
+            </div>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/taliane-mpassi-83b55712a" class="social-link" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.instagram.com/thaly_desty?igsh=MXc2ejJzdjZzMmNwbQ==" class="social-link" target="_blank" title="GitHub">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1BndBnWz9v/" class="social-link" target="_blank" title="X">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </div>
+            <br>
+            <div class="watermark">Thaly-Desty © 2025</div>
+        </div>
+        <div class="card-header-2">
+            <div class="company-sub">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Données de la carte de visite f3cf06
+        const contactData = {
+            //company: "ASSURANCES GENERALES DU CONCO-VIE",
+            //membership: "MEMBRE DU RESEAU",
+            //network: "Globus",
+            phone1: "+242 06 633 38 78",
+            phone2: "+27 62 785 69 40",
+            address: "BP.: 1124 Brazzaville, Avenue Amilcar Cabral, Centre-Ville",
+            email1: "taliane@aims.ac.za",
+            //email2: "lazare.lembion@agc-vie.cg",
+            name: "Désirée Taliane - MPASSI MAHINGA",
+            title: "PhD candidate in industrial Engineering/Optimisation of Renewable Energy Systems",
+            photo: "https://ui-avatars.com/api/?name=Elgha+Moe&background=2a5ca7&color=fff&size=128"
+        };
+        
+        // Générer le QR Code avec les informations de contact
+        function generateQRCode() {
+            const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${contactData.name}
+ORG:${contactData.name} - ${contactData.company}
+TITLE:${contactData.title}
+TEL;TYPE=WORK,VOICE:${contactData.phone1}
+TEL;TYPE=WORK,VOICE:${contactData.phone2}
+EMAIL;TYPE=PERSONAL,INTERNET:${contactData.email1}
+EMAIL;TYPE=WORK,INTERNET:${contactData.email2}
+ADR;TYPE=WORK:${contactData.address}
+NOTE:${contactData.membership} - ${contactData.network}
+PHOTO;VALUE=URI:${contactData.photo}
+END:VCARD`;
+            
+        // Remplace cette URL par celle que tu veux encoder en QR code
+        const url = "https://mbfdm.github.io/carte-visite-agc-vie-dg/";
+        new QRCode(document.getElementById("qrcode"), {
+            text: url,
+            width: 150,
+            height: 150,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        }
+        
+        // Enregistrer dans les contacts
+        function saveToContacts() {
+            const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${contactData.name}
+ORG:${contactData.name} - ${contactData.company}
+TEL;TYPE=WORK,VOICE:${contactData.phone1}
+TEL;TYPE=WORK,VOICE:${contactData.phone2}
+EMAIL;TYPE=PERSONAL,INTERNET:${contactData.email1}
+EMAIL;TYPE=WORK,INTERNET:${contactData.email2}
+ADR;TYPE=WORK:${contactData.address}
+NOTE:${contactData.membership} - ${contactData.network}
+PHOTO;VALUE=URI:${contactData.photo}
+END:VCARD`;
+            
+            const blob = new Blob([vcard], { type: "text/vcard" });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${contactData.name.replace(/ /g, '_')}.vcf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+        
+        // Ouvrir WhatsApp
+        function openWhatsApp() {
+            const phone = contactData.phone2.replace(/[^0-9]/g, '');
+            const message = encodeURIComponent(`Bonjour Mme ${contactData.name.split(' ')[0]},\n\nJe vous contacte depuis votre carte de visite.\n\nPourriez-vous m'apporter votre assistance ?`);
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+        
+        // Prendre rendez-vous (ouvre l'email)
+        function takeAppointment() {
+            const subject = encodeURIComponent("Demande de rendez-vous - Thaly-Desty");
+            const body = encodeURIComponent(`Bonjour Mme ${contactData.name.split(' ')[0]},\n\nJe souhaiterais prendre rendez-vous avec vous concernant :\n\n[Précisez l'objet du rendez-vous]\n\nDisponibilités proposées :\n[Indiquez vos disponibilités]\n\nCordialement,\n\n[Votre nom]\n[Votre société]\n[Votre numéro de téléphone]`);
+            window.location.href = `mailto:${contactData.email1},${contactData.email2}?subject=${subject}&body=${body}`;
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            generateQRCode();
+            
+            // Animation au chargement
+            const card = document.querySelector('.business-card');
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
